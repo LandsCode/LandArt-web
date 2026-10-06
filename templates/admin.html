@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Catálogo</title>
+    <!-- Conexión con tu archivo CSS original de Flask -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <style>
+        /* Estilos rápidos para ordenar el panel de control */
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f9; color: #333; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .form-admin { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 30px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group input, .form-group select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .btn-submit { background-color: #28a745; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        .btn-submit:hover { background-color: #218838; }
+        .tabla-productos { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .tabla-productos th, .tabla-productos td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        .tabla-productos th { background-color: #343a40; color: white; }
+        .tabla-productos tr:hover { background-color: #f1f1f1; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤠 Panel de Administración del Catálogo</h1>
+        <p><a href="{{ url_for('catalogo') }}">➡️ Ver vista del cliente (Catálogo público)</a></p>
+
+        <!-- Formulario para editar datos -->
+        <div class="form-admin">
+            <h2>Editar Datos de un Sombrero</h2>
+            <form action="{{ url_for('administrador') }}" method="POST">
+                
+                <!-- 1. Campo para ingresar el ID del producto exacto -->
+                <div class="form-group">
+                    <label for="id_producto">ID del Sombrero a modificar:</label>
+                    <input type="text" id="id_producto" name="id_producto" placeholder="Ejemplo: SOM-01" required>
+                </div>
+
+                <!-- 2. Menú desplegable para elegir qué propiedad se va a cambiar -->
+                <div class="form-group">
+                    <label for="campo_a_modificar">Campo a modificar:</label>
+                    <select id="campo_a_modificar" name="campo_a_modificar" required>
+                        <option value="nombre">Nombre</option>
+                        <option value="precio">Precio (Solo números enteros)</option>
+                        <option value="tecnica">Técnica</option>
+                        <option value="material">Material</option>
+                    </select>
+                </div>
+
+                <!-- 3. Campo de texto para el nuevo valor -->
+                <div class="form-group">
+                    <label for="nuevo_valor">Nuevo Valor:</label>
+                    <input type="text" id="nuevo_valor" name="nuevo_valor" placeholder="Introduce el nuevo dato o precio" required>
+                </div>
+
+                <button type="submit" class="btn-submit">Actualizar Producto</button>
+            </form>
+        </div>
+
+        <!-- Tabla informativa para que el administrador vea las IDs y valores actuales -->
+        <h2>Inventario Actual (Referencia de IDs)</h2>
+        <table class="tabla-productos">
+            <thead>
+                <tr>
+                    <th>ID (Llave)</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Técnica</th>
+                    <th>Material</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for producto in productos %}
+                <tr>
+                    <!-- Mostramos la propiedad id que tu método 'obtener_lista_de_productos' inyectó de forma segura -->
+                    <td><strong>{{ producto.id }}</strong></td>
+                    <td>{{ producto.nombre }}</td>
+                    <td>${{ producto.precio }} MXN</td>
+                    <td>{{ producto.tecnica }}</td>
+                    <td>{{ producto.material }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

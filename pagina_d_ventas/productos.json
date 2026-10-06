@@ -1,0 +1,29 @@
+{
+  
+    "pirograbado" : {
+            "nombre" : "Sombrero pirograbado",
+            "precio" :  400 ,
+            "material" : "Hecho de gamuza" ,
+            "tecnica" : "Pirograbado" ,
+            "imagen" : "/static/images/sombrero_pirograbado.jpg"
+            
+        },
+        
+        "pintado" : {
+            "nombre" : "Sombrero pintado a mano" ,
+            "precio" : 350 ,
+            "material" : "Hecho de lona" ,
+            "tecnica" : "Acrílico flexible" ,
+            "imagen" : "/static/images/sombrero_pintado.jpg"       
+            
+        },
+        
+        "relieve" : {
+            "nombre" : "Sombrero con relieve" ,
+            "precio" : 800 ,
+            "material" : "Hecho de lona" ,
+            "tecnica" : "Pasta flexible" ,
+            "imagen" : "/static/images/sombrero_relieve.jpg"
+            
+        }
+}

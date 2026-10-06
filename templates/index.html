@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo virtual</title>
+    <!-- conexión obligatoria con el archivo css en flask-->
+     <link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
+</head>
+<body>
+    <header>
+       <div class="header-contenedor" >
+        <nav>
+            <div class="logo-conteiner" id="">
+                <a href=""></a>
+            </div>
+
+            <div class="barra_busqueda">
+                <form class="buscador_form" action="/buscar" method="GET">
+                    <input type="search" placeholder="Buscar" aria-label="Buscar productos">
+                    <button type="submit" aria-label="Ejecutar búsqueda">
+                        <!-- ícono svg de lupa-->
+                         <svg xmlns="https://w3.org" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65" ></line>
+                         </svg>
+                    </button>
+                </form>
+
+                <!--botón carrito-->
+                <button type="button" class="btn-carrito" aria-label="Carrito de compras">
+                    <!--ícono de carrito-->
+                    <svg></svg>
+                </button>
+            </div>
+
+             <!--menú hamburguesa-->
+            <button class="button-conteiner"></button>
+
+            <div class="menu-conteiner">
+
+                <ul class="nav-list">
+                    <li class="dropdown">
+                        <a href="#" class="nav_link" id="sombreros">
+                            <!--img de sombrero svg o webp-->
+                        <img class="icon_link" src="" alt="">
+                        <span class="som">Sombreros</span>
+                        <span class="flecha">&#9662 ;</span></a>
+                        <ul class="submenu">
+                            <li><a href="#" class="sub_link">Pirograbados</a></li>
+                            <li><a href="#" class="sub_link">Pintados a mano</a></li>
+                            <li><a href="#" class="sub_link">Relieve</a></li>
+                            <li><a href="#" class="sub_link">Lona</a></li>
+                            <li><a href="#" class="sub_link">Gamuza</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="nav_link" id="aretes">
+                            <!--img de arete svg o webp-->
+                        <img class="icon_link" src="" alt="">
+                        <span class="som">Aretes</span>
+                        <span class="flecha">&#9662 ;</span></a>
+                        <ul class="submenu">
+                            <li><a href="#" class="sub_link">Madera pirograbados</a></li>
+                            <li><a href="#" class="sub_link">Madera pintados a mano</a></li>
+                            <li><a href="#" class="sub_link">Madera Encapsulados con resina</a></li>
+                            <li><a href="#" class="sub_link">Resina</a></li>
+                            <li><a href="#" class="sub_link">wire raped earings</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="nav_link" id="cuadros">
+                            <!--img de arete svg o webp-->
+                        <img class="icon_link" src="" alt="">
+                        <span class="som">Cuadros</span>
+                        <span class="flecha">&#9662 ;</span></a>
+                        <ul class="submenu">
+                            <li><a href="#" class="sub_link">Acrílico sobre lienzo</a></li>
+                            <li><a href="#" class="sub_link">Bajo relieve</a></li>
+                            <li><a href="#" class="sub_link">Acabados con resina</a></li>                            
+                        </ul>
+                    </li>
+
+                </ul>
+
+                
+            </div>        
+                       
+        </nav>
+
+        <div class="hero-bannerconteiner">
+            <div class="site-name-conteiner">
+                <h2 id="site-name">LandArt: tu inspiración pintada a mano</h2>
+            </div>
+        </div>
+
+
+       </div>
+    </header>
+
+            <main class="galeria">
+        <!-- CORREGIDO: Iteramos directamente sobre la lista de productos enviada por Python -->
+        {% for producto in productos %}
+        <div class="tarjeta">
+            
+            <!-- CORREGIDO: Usamos el objeto 'producto' directo con su punto '.' para acceder a las propiedades -->
+            <img src="{{ url_for('static', filename='images/' ~ producto.imagen) }}" alt="{{ producto.nombre }}" style="width: 100%; border-radius: 8px; object-fit: cover;">
+
+            <h2>{{ producto.nombre }}</h2>
+            
+            <p class="precio">${{ producto.precio }} MXN</p>
+            <p class="detalle"><strong>Material:</strong> {{ producto.material }}</p>
+            <p class="detalle"><strong>Técnica:</strong> {{ producto.tecnica }}</p>     
+        </div>
+        {% else %}
+        <!-- En caso de que la lista llegue vacía -->
+        <p>No se encontraron productos en el catálogo.</p>
+        {% endfor %}
+    </main>
+
+
+
+</body>    
+    
+</html>
